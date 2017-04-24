@@ -327,7 +327,7 @@ This is list of possible values for ```call_time``` field in contact creation.
     + Body
 
             {
-                "code": "10",
+                "code": 10,
                 "message": "Missing required fields"
             }
             
@@ -375,7 +375,7 @@ This is list of possible values for ```call_time``` field in contact creation.
 
 + Parameters
 
-    + id: `1234` (required, number) - page of result
+    + id: `1234` (required, number) - contact id 
 
 + Request
 
@@ -414,9 +414,21 @@ This is list of possible values for ```call_time``` field in contact creation.
     + Body
 
             {
-                "code": "10",
+                "code": 10,
                 "message": "Missing required attribute"
             }
+
++ Response 404 (application/json)
+
+    404 Response sent when contact id not found
+    
+    + Body
+
+            {
+                "code": 1,
+                "message": "Contact ID not found"
+            }
+        
 
 + Response 401 (application/json)
 
@@ -509,7 +521,7 @@ This endpoint will provide only contacts related to API credentials.
     + Body
 
             {
-                "code": "10",
+                "code": 10,
                 "message": "Missing required attribute"
             }
 
