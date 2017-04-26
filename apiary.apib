@@ -76,9 +76,7 @@ HOST: https://jak-zhubnout-dieta.cz/
 
 ## Authorization & Authentification [/oauth/v2/token]
 
-![OAuth 2.0](http://oauth.net/images/oauth-2-sm.png)
-
-The Naturhouse API uses [OAuth 2.0](http://oauth.net/2/) for authentication.
+The Naturhouse API uses [OAuth 2.0](http://oauth.net/2/) for authentication or `X-Auth-Token` static token provided by administrator. Static token requres allowed client IP.
 
 
 ### Acces Token Request [POST] 
@@ -149,7 +147,6 @@ Returns list of Naturhouse branches. Unique branch id is required for successful
     + Body
 
             {
-                "records": 3,
                 "branches": 
                 [
                     {
@@ -243,7 +240,6 @@ This is list of possible values for ```call_time``` field in contact creation.
     + Body
 
             {
-                "records": 3,
                 "times": [
                     {
                         "id": 0,
@@ -327,8 +323,17 @@ This is list of possible values for ```call_time``` field in contact creation.
     + Body
 
             {
-                "code": 10,
-                "message": "Missing required fields"
+                "errors":
+                [
+                    {
+                        "code": 10,
+                        "message": "Missing required fields"
+                    },
+                    {
+                        "code": 11,
+                        "message": "Invalid phone format"
+                    }
+                ]
             }
             
 + Response 401 (application/json)
@@ -382,6 +387,7 @@ This is list of possible values for ```call_time``` field in contact creation.
     + Header
 
             Authorization: Bearer <access-token>
+            X-Auth-Token: aGVzbG86aGVzbG8=
 
 + Response 200 (application/json)
  
@@ -414,8 +420,13 @@ This is list of possible values for ```call_time``` field in contact creation.
     + Body
 
             {
-                "code": 10,
-                "message": "Missing required attribute"
+                "errors":
+                [
+                    {
+                    "code": 10,
+                    "message": "Missing required attribute"
+                    }
+                ]
             }
 
 + Response 404 (application/json)
@@ -477,6 +488,7 @@ This endpoint will provide only contacts related to API credentials.
     + Header
 
             Authorization: Bearer <access-token>
+            X-Auth-Token: aGVzbG86aGVzbG8=rs
 
 + Response 200 (application/json)
 
@@ -489,7 +501,6 @@ This endpoint will provide only contacts related to API credentials.
     + Body
     
             {
-                "records": 1,
                 "contacts": [
                     {
                         "id": "167312",
@@ -520,8 +531,13 @@ This endpoint will provide only contacts related to API credentials.
     + Body
 
             {
-                "code": 10,
-                "message": "Missing required attribute"
+                "errors":
+                [
+                    {
+                    "code": 10,
+                    "message": "Missing required attribute"
+                    }
+                ]
             }
 
 + Response 401 (application/json)
